@@ -1,9 +1,13 @@
+// if (process.env.NODE_ENV === 'development') require('dotenv').config()
+require('dotenv').config()
 const express = require('express')
 const morgan = require('morgan')
 const multer = require('multer')
 const path = require('path')
 
+//initializations
 const app = express()
+require('./database')
 
 app.use(express.json())
 
@@ -19,6 +23,14 @@ const storage = multer.diskStorage({
 })
 app.use(multer({storage}).single('image'))
 app.use(express.urlencoded({extended: false}))
+
+// Routes 
+
+app.use('/api/books',require('./routes/books'))
+
+// static files
+
+app.use(express.static(path.join(__dirname, 'public')))
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
