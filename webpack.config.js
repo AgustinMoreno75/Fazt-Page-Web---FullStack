@@ -11,6 +11,8 @@ module.exports = {
         filename: 'js/bundle.js'
     },
 
+    mode: 'development',
+
     module: {
         rules: [
             {
