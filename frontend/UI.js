@@ -49,8 +49,13 @@ class UI {
 
     }
 
-    deleteBook() {
-
+    async deleteBook(bookId) {
+        try {
+            await BookServices.deleteBooks(bookId);
+            this.renderBooks();
+        } catch (error) {
+            console.error('Error while deleting the book:', error.message);
+        }
     }
 }
 

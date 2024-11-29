@@ -1,5 +1,11 @@
 import './styles/app.css'
 
+import { Buffer } from 'buffer';
+import process from 'process';
+
+global.Buffer = Buffer;
+global.process = process;
+
 import UI from './UI'
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -22,6 +28,16 @@ document.getElementById('book-form').addEventListener('submit', (e) => {
 
     const ui = new UI()
     ui.addNewBooks(formData)
+    ui.renderMessage('New Book Added', 'success', 3000)
+    ui.renderMessage('Book Removed', 'danger', 3000)
 
 
+})
+
+document.getElementById('books-cards').addEventListener('click', (e) => {
+    if (e.target.classList.contains('delete')) {
+        const ui = new UI()
+        ui.deleteBook(e.target.getAttribute('_id'))
+    }
+    e.preventDefault()
 })
